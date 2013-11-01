@@ -53,14 +53,16 @@
 
 <script runat="server">
 
-	private string CONN_CONSOLE = "";
-	private enum Types { Select, Insert, Update };
+	string CONN_CONSOLE = "";
+	enum Types { Select, Insert, Update };
 
-	private void Page_Load(object sender, EventArgs e)
+
+	void Page_Load(object sender, EventArgs e)
 	{
 		if (inConn.Value.Trim().Length > 5)
 			CONN_CONSOLE = inConn.Value;
 	}
+
 
 	void inType_SelectedIndexChanged(object sender, EventArgs e)
 	{
@@ -68,7 +70,8 @@
 			Response.Write(inType.SelectedValue);
 	}
 
-	private void btnExec_ServerClick(object sender, EventArgs e)
+
+	void btnExec_ServerClick(object sender, EventArgs e)
 	{
 		if (inQuery == null || inOutput == null)
 			return;
@@ -107,7 +110,8 @@
 		}
 	}
 
-	private string ExecuteCommand(string command, SqlConnection conn)
+
+	string ExecuteCommand(string command, SqlConnection conn)
 	{
 		StringBuilder result = new StringBuilder();
 		SqlCommand cmd = new SqlCommand(command, conn);
@@ -142,7 +146,7 @@
 	}
 
 
-	private string MakeInserts(string command, SqlConnection conn)
+	string MakeInserts(string command, SqlConnection conn)
 	{
 		StringBuilder result = new StringBuilder();
 		SqlCommand cmd = new SqlCommand(command, conn);
@@ -208,7 +212,7 @@
 	}
 
 
-	private string MakeUpdates(string command, SqlConnection conn)
+	string MakeUpdates(string command, SqlConnection conn)
 	{
 		StringBuilder result = new StringBuilder();
 		SqlCommand cmd = new SqlCommand(command, conn);
@@ -253,7 +257,7 @@
 	}
 
 
-	private string GetValue(object obj, bool replace)
+	string GetValue(object obj, bool replace)
 	{
 		switch (obj.GetType().FullName)
 		{
@@ -283,12 +287,11 @@
 		}
 	}
 
-	private string Normalize(object obj, bool replace)
+
+	string Normalize(object obj, bool replace)
 	{
 		string s = Server.HtmlEncode(obj.ToString());
 		return replace ? s.Replace("'", "''") : s;
 	}
 
-
 </script>
-
